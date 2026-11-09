@@ -1,0 +1,70 @@
+# Notes site
+#
+# Two topics, Mathematics and Computer Science. To add a subcategory, create a
+# folder and put Markdown files in it. Each file needs front matter.
+#
+#   _mathematics/graph-theory/index.md
+#   _mathematics/graph-theory/eulerian-paths.md
+#   _operating_systems/compilers/index.md
+#   _operating_systems/compilers/lexing.md
+#
+# index.md is optional. When present, its title, description, and body become
+# the subcategory page. Every other Markdown file is a note. Set `order` to
+# control sorting; otherwise notes sort by filename. Both topics render MathJax.
+
+title: essent0
+description: Notes on mathematics and operating systems.
+url: https://essent0.github.io
+baseurl: ""
+lang: en
+
+# Math is written as $...$ and $$...$$. Fenced code blocks use backticks.
+# A literal dollar sign is written as \$.
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+permalink: pretty
+
+topics:
+  - name: Mathematics
+    slug: mathematics
+    collection: mathematics
+    description: Definitions, proofs, and worked notes.
+  - name: Operating Systems
+    slug: operating-systems
+    collection: operating_systems
+    description: Resource management, execution, and abstraction.
+
+collections:
+  mathematics:
+    output: true
+    permalink: /mathematics/:path/
+  operating_systems:
+    output: true
+    permalink: /operating-systems/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: mathematics
+    values:
+      layout: note
+  - scope:
+      path: ""
+      type: operating_systems
+    values:
+      layout: note
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
+  - .gitignore
+  - docs

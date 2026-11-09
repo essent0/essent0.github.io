@@ -1,0 +1,31 @@
+---
+layout: default
+---
+<article class="topic">
+  {% include breadcrumbs.html %}
+  <h1>{{ page.title }}</h1>
+  {% if page.description != "" %}
+    <p class="lede">{{ page.description }}</p>
+  {% endif %}
+  {% if page.subcategories.size > 0 %}
+    <ul class="subcategory-list">
+      {% for sub in page.subcategories %}
+        <li>
+          <a href="{{ sub.url | relative_url }}">{{ sub.title }}</a>
+          {% if sub.description != "" %}
+            <p>{{ sub.description }}</p>
+          {% endif %}
+          <p class="meta">
+            {% if sub.notes.size == 1 %}
+              1 note
+            {% else %}
+              {{ sub.notes.size }} notes
+            {% endif %}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">No subcategories yet. Add a folder under <code>_{{ page.collection }}</code> and put a Markdown file inside it.</p>
+  {% endif %}
+</article>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    {% include header.html %}
+    <div class="shell{% if page.topic_slug %} has-sidebar{% endif %}">
+      {% if page.topic_slug %}
+        {% include sidebar.html %}
+      {% endif %}
+      <main id="content">
+        {{ content }}
+      </main>
+    </div>
+    {% include mathjax.html %}
+  </body>
+</html>

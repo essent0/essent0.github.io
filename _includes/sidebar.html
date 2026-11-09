@@ -1,0 +1,27 @@
+<aside class="sidebar">
+  {% for topic in site.data.catalog %}
+    {% if topic.slug == page.topic_slug %}
+      <p class="side-label">{{ topic.name }}</p>
+      {% if topic.subcategories.size > 0 %}
+        <ul class="side-subs">
+          {% for sub in topic.subcategories %}
+            <li>
+              <a href="{{ sub.url | relative_url }}"{% if page.subcategory_slug == sub.slug %} aria-current="{% if page.layout == 'subcategory' %}page{% else %}true{% endif %}"{% endif %}>{{ sub.title }}</a>
+              {% if page.subcategory_slug == sub.slug and sub.notes.size > 0 %}
+                <ul>
+                  {% for note in sub.notes %}
+                    <li>
+                      <a href="{{ note.url | relative_url }}"{% if note.url == page.url %} aria-current="page"{% endif %}>{{ note.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty">No subcategories yet.</p>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</aside>

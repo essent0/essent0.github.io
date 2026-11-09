@@ -1,0 +1,18 @@
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+    {% if page.layout == "topic" %}
+      <li>{{ page.title }}</li>
+    {% elsif page.topic_title %}
+      <li><a href="{{ page.topic_url | relative_url }}">{{ page.topic_title }}</a></li>
+    {% endif %}
+    {% if page.layout == "subcategory" %}
+      <li>{{ page.title }}</li>
+    {% elsif page.subcategory_title %}
+      <li><a href="{{ page.subcategory_url | relative_url }}">{{ page.subcategory_title }}</a></li>
+    {% endif %}
+    {% if page.layout == "note" %}
+      <li>{{ page.title }}</li>
+    {% endif %}
+  </ol>
+</nav>

@@ -1,0 +1,10 @@
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav aria-label="Topics">
+      {% for topic in site.data.catalog %}
+        <a href="{{ topic.url | relative_url }}"{% if page.url == topic.url %} aria-current="page"{% elsif page.topic_slug == topic.slug %} aria-current="true"{% endif %}>{{ topic.name }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>

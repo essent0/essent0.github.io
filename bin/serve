@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Start the site at http://127.0.0.1:4000
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+root="$(pwd)"
+port="${PORT:-4000}"
+
+unset BUNDLE_PATH BUNDLE_USER_CONFIG
+
+if [[ -x "$root/.tools/ruby/bin/ruby" ]]; then
+  export PATH="$root/.tools/ruby/bin:$PATH"
+  export LD_LIBRARY_PATH="$root/.tools/ruby/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+  ruby_lib="$root/.tools/ruby/lib/ruby/3.3.0"
+  export RUBYLIB="$ruby_lib:$ruby_lib/x86_64-linux${RUBYLIB:+:$RUBYLIB}"
+  ruby="$root/.tools/ruby/bin/ruby"
+elif command -v ruby >/dev/null 2>&1; then
+  ruby="$(command -v ruby)"
+else
+  echo "Ruby was not found. On Ubuntu, install the packages in docs/readme.md." >&2
+  exit 1
+fi
+
+if (echo >/dev/tcp/127.0.0.1/"$port") >/dev/null 2>&1; then
+  echo "http://127.0.0.1:$port is already in use." >&2
+  echo "Stop that server, or run: PORT=4001 ./bin/serve" >&2
+  exit 1
+fi
+
+"$ruby" -S bundle config set --local path vendor/bundle
+if ! "$ruby" -S bundle check >/dev/null 2>&1; then
+  "$ruby" -S bundle install
+fi
+
+exec "$ruby" -S bundle exec jekyll serve --host 127.0.0.1 --port "$port"

@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<div class="home">
+  <h1>{{ site.title }}</h1>
+  <p class="lede">{{ site.description }}</p>
+  {{ content }}
+  <div class="topic-list">
+    {% for topic in site.data.catalog %}
+      <section class="topic-block">
+        <h2><a href="{{ topic.url | relative_url }}">{{ topic.name }}</a></h2>
+        {% if topic.description != "" %}
+          <p>{{ topic.description }}</p>
+        {% endif %}
+        {% if topic.subcategories.size > 0 %}
+          <ul class="sub-links">
+            {% for sub in topic.subcategories %}
+              <li><a href="{{ sub.url | relative_url }}">{{ sub.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty">No subcategories yet.</p>
+        {% endif %}
+      </section>
+    {% endfor %}
+  </div>
+</div>

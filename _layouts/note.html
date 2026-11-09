@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article class="note">
+  {% include breadcrumbs.html %}
+  <h1>{{ page.title }}</h1>
+  <div class="prose">
+    {{ content }}
+  </div>
+  {% if page.prev_note or page.next_note %}
+    <nav class="pager" aria-label="Notes in this subcategory">
+      {% if page.prev_note %}
+        <a class="prev" href="{{ page.prev_note.url | relative_url }}" rel="prev">
+          <span>Previous</span>
+          {{ page.prev_note.title }}
+        </a>
+      {% endif %}
+      {% if page.next_note %}
+        <a class="next" href="{{ page.next_note.url | relative_url }}" rel="next">
+          <span>Next</span>
+          {{ page.next_note.title }}
+        </a>
+      {% endif %}
+    </nav>
+  {% endif %}
+</article>
