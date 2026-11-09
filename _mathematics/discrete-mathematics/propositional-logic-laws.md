@@ -33,12 +33,10 @@ $$
 
 **Complement**
 
-Tautology
 $$
 P \lor \neg P \equiv \top
 $$
 
-Contradiction
 $$
 P \land \neg P \equiv \bot
 $$
